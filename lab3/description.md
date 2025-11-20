@@ -43,10 +43,24 @@ update orders set status = 'completed' where order_id = 2
 # Delete-запити 
 ---
 ```sql
-delete from cart_product where user_id = 18
+delete from cart_product where user_id = 18 and product_id = 26
 ```
 ![Before](./screenshots/delete-cp-before.png)
 ![After](./screenshots/delete-cp-after.png)
+---
+Симулювання створення order-запиту
+```sql
+insert into orders (order_date, status, adress, user_id) values
+('2025-11-20', 'waaiting', 'м. Київ, вул. Хрещатик, 21, кв. 5', 17),
+
+insert into order_product (order_id, product_id, amount, price) values
+(7, 26, 1, 50000);
+
+delete from cart_product where user_id = 17;
+```
+![Before](./screenshots/delete-cp-after.png)
+![After](./screenshots/delete-order-create.png)
+
 
 
 ### Список таблиць з стовбцями
