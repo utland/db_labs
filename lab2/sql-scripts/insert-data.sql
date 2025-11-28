@@ -1,8 +1,8 @@
 insert into users (login, password, address, phone, email, photoURL) values 
-("utland", "0000", "м. Київ, вул. Хрещатик, 21, кв. 5", "+49 23 548 38438", "utland@gmail.com", null),
-("sizonenko", "1111", null, "+9 875 238 540", "sizonenko@gmail.com", null),
-("ilya", "7842", "м. Львів, пл. Ринок, 10", "+380 973 834 7347", "ilya@gmail.com", null),
-("john", "fhwjkhhk938", "м. Київ, пр. Перемоги, 45, офіс 301", "+1 348 3478 34", "freedom000@gmail.com", "https://www.dreamstime.com/royalty-free-stock-photography-typical-american-college-teenager-image20227417"),
+('utland', '0000', 'м. Київ, вул. Хрещатик, 21, кв. 5', '+49 23 548 438', 'utland@gmail.com', null),
+('sizonenko', '1111', null, '+9 875 238 540', 'sizonenko@gmail.com', null),
+('ilya', '7842', 'м. Львів, пл. Ринок, 10', '+380 73 834 747', 'ilya@gmail.com', null),
+('john', 'fhwjkhhk938', 'м. Київ, пр. Перемоги, 45, офіс 301', '+1 348 3478 34', 'freedom000@gmail.com', 'https://www.dreamstime.com/royalty-free-stock-photography-typical-american-college-teenager-image20227417');
 
 insert into supplier (name, phone, email, logo) values
 ('Apple Inc.', '+18002752273', 'contact@apple.com', 'http://example.com/logos/apple.png'),
@@ -23,7 +23,7 @@ insert into product (name, price, description, supplier_id, category_id) values
 ('Телевізор Samsung Neo QLED', 32500, 'Телевізор з діагоналлю 55 дюймів та роздільною здатністю 4K.', 19, 24),
 ('Цукерки "Вечірній Київ"', 250, 'Подарункова коробка шоколадних цукерок з цілим фундуком.', 18, 22);
 
-insert into orders (order_date, status, adress, user_id) values
+insert into orders (order_date, status, address, user_id) values
 ('2025-10-15', 'completed', 'м. Київ, вул. Хрещатик, 21, кв. 5', 17),
 ('2025-10-18', 'in process', 'м. Львів, пл. Ринок, 10', 19),
 ('2025-10-19', 'waiting', 'м. Київ, пр. Перемоги, 45, офіс 301', 20),
@@ -33,7 +33,7 @@ insert into order_product (order_id, product_id, amount, price) values
 (1, 26, 1, 45000),
 (2, 27, 5, 45),
 (2, 28, 1, 550),
-(3, 30, 3, 250);
+(3, 30, 3, 250),
 (4, 28, 2, 550);
 
 insert into cart_product (user_id, product_id, amount) values
