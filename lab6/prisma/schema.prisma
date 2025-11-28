@@ -78,7 +78,6 @@ model supplier {
   name        String    @db.VarChar(50)
   phone       String    @db.VarChar(15)
   email       String    @db.VarChar(20)
-  logo        String?
   product     product[]
 }
 
