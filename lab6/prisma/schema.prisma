@@ -1,0 +1,109 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model cart_product {
+  user_id    Int
+  product_id Int
+  amount     Int
+  product    product @relation(fields: [product_id], references: [product_id], onDelete: NoAction, onUpdate: NoAction)
+  users      users   @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@id([user_id, product_id])
+}
+
+model category {
+  category_id Int       @id @default(autoincrement())
+  name        String    @db.VarChar(20)
+  product     product[]
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model order_product {
+  order_id   Int
+  product_id Int
+  amount     Int
+  price      Int
+  orders     orders  @relation(fields: [order_id], references: [order_id], onDelete: NoAction, onUpdate: NoAction)
+  product    product @relation(fields: [product_id], references: [product_id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@id([order_id, product_id])
+}
+
+model orders {
+  order_id      Int             @id @default(autoincrement())
+  order_date    DateTime        @db.Date
+  status        order_status
+  user_id       Int
+  address       String          @db.VarChar(50)
+  order_product order_product[]
+  users         users           @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model product {
+  product_id    Int             @id @default(autoincrement())
+  name          String          @db.VarChar(30)
+  price         Int
+  description   String
+  supplier_id   Int
+  category_id   Int
+  cart_product  cart_product[]
+  order_product order_product[]
+  category      category        @relation(fields: [category_id], references: [category_id], onDelete: NoAction, onUpdate: NoAction)
+  supplier      supplier        @relation(fields: [supplier_id], references: [supplier_id], onDelete: NoAction, onUpdate: NoAction)
+  review        review[]
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model review {
+  review_id   Int      @id @default(autoincrement())
+  user_id     Int
+  product_id  Int
+  evaluation  Int      @db.SmallInt
+  comment     String?
+  review_date DateTime @db.Date
+  product     product  @relation(fields: [product_id], references: [product_id], onDelete: NoAction, onUpdate: NoAction)
+  users       users    @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model supplier {
+  supplier_id Int       @id @default(autoincrement())
+  name        String    @db.VarChar(50)
+  phone       String    @db.VarChar(15)
+  email       String    @db.VarChar(20)
+  logo        String?
+  product     product[]
+}
+
+model users {
+  user_id      Int            @id @default(autoincrement())
+  login        String         @unique @db.VarChar(20)
+  password     String         @db.VarChar(60)
+  address      String?        @db.VarChar(50)
+  phone        String         @db.VarChar(15)
+  email        String         @unique @db.VarChar(25)
+  photourl     String?
+  cart_product cart_product[]
+  orders       orders[]
+  review       review[]
+  role         user_role      @default(user)
+}
+
+enum order_status {
+  waiting
+  in_process @map("in process")
+  completed
+  cancelled
+}
+
+enum user_role {
+  user
+  admin
+}
