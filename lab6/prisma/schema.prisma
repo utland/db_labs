@@ -41,9 +41,11 @@ model orders {
   order_date    DateTime        @db.Date
   status        order_status
   user_id       Int
+  payment_id    Int
   address       String          @db.VarChar(50)
   order_product order_product[]
   users         users           @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction)
+  payment       payment         @relation(fields: [payment_id], references: [payment_id])
 }
 
 /// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
@@ -92,7 +94,18 @@ model users {
   cart_product cart_product[]
   orders       orders[]
   review       review[]
+  payments     payment[]
   role         user_role      @default(user)
+}
+
+model payment {
+  payment_id   Int           @id @default(autoincrement())
+  payment_date DateTime      @db.Date()
+  method       String        @db.Text()
+  amount       Int           @db.Integer()
+  user_id      Int
+  orders       orders[] 
+  user         users         @relation(fields: [user_id], references: [user_id])               
 }
 
 enum order_status {
