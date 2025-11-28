@@ -67,7 +67,7 @@ model review {
   user_id     Int
   product_id  Int
   evaluation  Int      @db.SmallInt
-  comment     String?
+  text     String?
   review_date DateTime @db.Date
   product     product  @relation(fields: [product_id], references: [product_id], onDelete: NoAction, onUpdate: NoAction)
   users       users    @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction)
