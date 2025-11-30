@@ -33,17 +33,6 @@ delete from product where product_id = 6;
 Результат:
 ![delete](/lab3/screenshots/select-dl-p.png)
 
-```sql
-select op.product_id, op.amount, o.order_id, o.status
-from orders o
-left join order_product op using(order_id)
-where user_id = 2
-```
-
-
-
-
-
 ### Список таблиць з стовбцями
 User - Зберігає інформацію про зареєстрованих користувачів
 + user_id (PK): Унікальний ідентифікатор користувача
